@@ -16,6 +16,12 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * Fetches nearby places from the Google Places Nearby Search API for a given category
+ * and user location. Calculates straight-line distance and populates a
+ * {@link PlaceAdapter_2} on the provided RecyclerView. Supports de-duplication
+ * across multiple category searches via an internal key set.
+ */
 public class CordinatesFinderChurches {
     private List<Place_2> allResults = new ArrayList<>();
     private Set<String> addedPlaceKeys = new HashSet<>();

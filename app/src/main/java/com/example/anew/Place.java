@@ -1,7 +1,12 @@
 package com.example.anew;
 
+/**
+ * Data model for a favorited place.
+ * Used in {@link FavoritesActivity} and {@link PlaceAdapter} to display
+ * saved places with their name, image, and coordinates.
+ */
 public class Place {
-    private String id; // Add this field for document ID
+    private String id;
     private String name;
     private String imageUrl;
     private double lat;

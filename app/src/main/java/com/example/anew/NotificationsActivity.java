@@ -6,6 +6,10 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
+/**
+ * Notifications screen placeholder. Currently displays a static layout.
+ * Future versions may list push notification history or in-app alerts.
+ */
 public class NotificationsActivity extends AppCompatActivity {
 
     @Override

@@ -10,6 +10,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import android.view.Window;
 
+/**
+ * Displays cards linking to the data sources used by the app:
+ * Google Maps (for place discovery) and OpenRouteService (for routing).
+ * Tapping a card opens the respective app or website.
+ */
 public class SourcesActivity extends AppCompatActivity {
 
     @Override

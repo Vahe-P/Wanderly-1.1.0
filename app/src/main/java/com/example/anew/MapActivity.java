@@ -41,6 +41,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * Displays a Google Map with start and destination markers and draws
+ * a driving route between them using the OpenRouteService Directions API.
+ * Shows distance and estimated duration alongside an animated polyline.
+ * Receives user/destination coordinates via Intent extras.
+ */
 public class MapActivity extends FragmentActivity implements OnMapReadyCallback {
     private GoogleMap mMap;
     private LatLng startLocation;

@@ -19,6 +19,12 @@ import androidx.work.WorkerParameters;
 import java.util.List;
 import java.util.Random;
 
+/**
+ * Periodic background worker that sends "Explore Now" notifications with
+ * a randomly selected travel slogan. Skips notifications when the app is
+ * in the foreground or when notification permission is not granted.
+ * Scheduled by {@link MyApp} and {@link BootReceiver} via WorkManager.
+ */
 public class HiWorker extends Worker {
 
     // Array of slogans

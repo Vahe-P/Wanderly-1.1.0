@@ -29,6 +29,11 @@ import java.util.HashMap;
 import java.util.Map;
 import com.cloudinary.Cloudinary;
 
+/**
+ * Profile editing screen. Allows users to update their first/last name and
+ * profile picture. New images are uploaded to Cloudinary, and the Firestore
+ * user document and Firebase Auth profile are updated accordingly.
+ */
 public class EditProfileActivity extends AppCompatActivity {
     private static final int PICK_IMAGE_REQUEST = 1;
     private EditText firstNameEditText, lastNameEditText;

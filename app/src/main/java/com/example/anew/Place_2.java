@@ -3,6 +3,12 @@ package com.example.anew;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
+/**
+ * Data model for a discovered place returned by the Google Places API.
+ * Used in {@link CordinatesFinderChurches} and {@link PlaceAdapter_2} to display
+ * nearby places with distance, category, and a deterministic SHA-256 ID
+ * generated from the place name and coordinates.
+ */
 public class Place_2 {
     private String name;
     private String imageUrl;

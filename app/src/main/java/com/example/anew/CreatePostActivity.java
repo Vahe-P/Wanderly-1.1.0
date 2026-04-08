@@ -36,6 +36,11 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
+/**
+ * Allows users to create new social posts with optional image (uploaded to Cloudinary)
+ * and geo-tagged location (current location or map-selected). Posts are stored in
+ * the Firestore "posts" collection.
+ */
 public class CreatePostActivity extends AppCompatActivity {
     private ImageButton btnBack;
     private Button btnPost;
@@ -125,9 +130,11 @@ public class CreatePostActivity extends AppCompatActivity {
         }
     }
 
+    /** Checks whether fine location permission is granted. */
     private boolean checkLocationPermission() {
-        // TODO: Implement location permission check
-        return true;
+        return androidx.core.content.ContextCompat.checkSelfPermission(
+                this, android.Manifest.permission.ACCESS_FINE_LOCATION)
+                == android.content.pm.PackageManager.PERMISSION_GRANTED;
     }
 
     private void createPost() {
@@ -195,7 +202,7 @@ public class CreatePostActivity extends AppCompatActivity {
 
                         runOnUiThread(() -> createPostInFirestore(userId, content, imageUrl));
                     } catch (JSONException e) {
-                        e.printStackTrace();
+                        Log.e("CreatePost", "Error parsing Cloudinary response", e);
                         runOnUiThread(() -> {
                             Toast.makeText(CreatePostActivity.this, "Error parsing Cloudinary response", Toast.LENGTH_SHORT).show();
                             btnPost.setEnabled(true);
@@ -204,7 +211,7 @@ public class CreatePostActivity extends AppCompatActivity {
                 }
             });
         } catch (Exception e) {
-            e.printStackTrace();
+            Log.e("CreatePost", "Error reading image for upload", e);
             Toast.makeText(this, "Error reading image", Toast.LENGTH_SHORT).show();
             btnPost.setEnabled(true);
         }

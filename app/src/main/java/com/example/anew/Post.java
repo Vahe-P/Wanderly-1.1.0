@@ -6,6 +6,12 @@ import com.google.firebase.firestore.GeoPoint;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Data model for a social post in the community feed.
+ * Stored in the Firestore "posts" collection. Supports text content,
+ * an optional image, geo-tagged location, likes (by user ID), and
+ * nested {@link Comment} objects.
+ */
 public class Post {
     private String id;
     private String userId;

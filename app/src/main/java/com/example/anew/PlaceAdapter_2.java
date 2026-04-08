@@ -46,6 +46,12 @@ import androidx.core.content.res.ResourcesCompat;
 import android.widget.EditText;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
+/**
+ * RecyclerView adapter for displaying discovered nearby places on the main screen.
+ * Each card shows the place image, name, distance, category badge, favorite toggle,
+ * share button, and a comments bottom sheet. Tapping a card opens {@link MapActivity}
+ * with routing from the user's location to the selected place.
+ */
 public class PlaceAdapter_2 extends RecyclerView.Adapter<PlaceAdapter_2.ChurchViewHolder> {
 
     private Context context;
@@ -123,8 +129,6 @@ public class PlaceAdapter_2 extends RecyclerView.Adapter<PlaceAdapter_2.ChurchVi
         } else if (church.getName().length() > 30) {
             holder.churchName.setTextSize(12);
         }
-        Log.d("btn", church.getName());
-
         String placeId = church.getId();
 
         FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -191,8 +195,6 @@ public class PlaceAdapter_2 extends RecyclerView.Adapter<PlaceAdapter_2.ChurchVi
             context.startActivity(Intent.createChooser(shareIntent, "Share via"));
         });
 
-<<<<<<< HEAD
-=======
         // Handle comments button
         holder.commentsButton.setOnClickListener(v -> {
             if (currentUser == null) {
@@ -237,32 +239,22 @@ public class PlaceAdapter_2 extends RecyclerView.Adapter<PlaceAdapter_2.ChurchVi
             postButton.setOnClickListener(v1 -> {
                 String commentText = commentInput.getText().toString().trim();
                 if (!commentText.isEmpty()) {
-                    // Fetch user info for name and profile picture
                     String userId = currentUser.getUid();
-                    Log.d("CommentDebug", "Fetching user info for userId: " + userId);
-                    Log.d("CommentDebug", "Current user email: " + currentUser.getEmail());
-                    Log.d("CommentDebug", "Current user is email verified: " + currentUser.isEmailVerified());
-                    
+
                     db.collection("users").document(userId).get()
                             .addOnSuccessListener(userDoc -> {
                                 if (userDoc.exists()) {
-                                    Log.d("CommentDebug", "User document exists");
                                     String firstName = userDoc.getString("firstName");
                                     String lastName = userDoc.getString("lastName");
                                     String profilePictureUrl = userDoc.getString("profilePictureUrl");
-                                    
-                                    Log.d("CommentDebug", "User data - firstName: " + firstName + 
-                                                         ", lastName: " + lastName + 
-                                                         ", profilePictureUrl: " + profilePictureUrl);
-                                    
+
                                     if (firstName == null) {
-                                        Log.e("CommentDebug", "User profile is incomplete - firstName is null");
                                         Toast.makeText(context, "User profile is incomplete. Please update your profile.", Toast.LENGTH_LONG).show();
                                         return;
                                     }
-                                    
+
                                     String fullName = firstName + (lastName != null && !lastName.isEmpty() ? " " + lastName : "");
-                                    
+
                                     Map<String, Object> comment = new HashMap<>();
                                     comment.put("userId", userId);
                                     comment.put("userName", fullName);
@@ -270,25 +262,20 @@ public class PlaceAdapter_2 extends RecyclerView.Adapter<PlaceAdapter_2.ChurchVi
                                     comment.put("text", commentText);
                                     comment.put("timestamp", System.currentTimeMillis());
                                     comment.put("likes", new HashMap<String, Boolean>());
-                                    
-                                    Log.d("CommentDebug", "Attempting to add comment to place: " + church.getId());
+
                                     commentsRef.add(comment)
                                             .addOnSuccessListener(documentReference -> {
-                                                Log.d("CommentDebug", "Comment added successfully with ID: " + documentReference.getId());
                                                 commentInput.setText("");
                                                 Toast.makeText(context, "Comment posted", Toast.LENGTH_SHORT).show();
                                             })
                                             .addOnFailureListener(e -> {
-                                                Log.e("CommentDebug", "Failed to post comment", e);
                                                 Toast.makeText(context, "Failed to post comment: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                                             });
                                 } else {
-                                    Log.e("CommentDebug", "User document does not exist for userId: " + userId);
                                     Toast.makeText(context, "User profile not found. Please update your profile.", Toast.LENGTH_LONG).show();
                                 }
                             })
                             .addOnFailureListener(e -> {
-                                Log.e("CommentDebug", "Failed to get user info", e);
                                 Toast.makeText(context, "Failed to get user info: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                             });
                 } else {
@@ -304,7 +291,6 @@ public class PlaceAdapter_2 extends RecyclerView.Adapter<PlaceAdapter_2.ChurchVi
         });
 
         // OnClickListener to open MapActivity
->>>>>>> 2ef41b3152620b48a7166eb50f19d0cef7c9a2f9
         holder.containerLayout.setOnClickListener(v -> {
             Intent intent = new Intent(context, MapActivity.class);
             intent.putExtra("userLat", userLat);
@@ -341,10 +327,7 @@ public class PlaceAdapter_2 extends RecyclerView.Adapter<PlaceAdapter_2.ChurchVi
             churchDistance = itemView.findViewById(R.id.placeDistance);
             starButton = itemView.findViewById(R.id.starButton);
             shareButton = itemView.findViewById(R.id.shareButton);
-<<<<<<< HEAD
-=======
             commentsButton = itemView.findViewById(R.id.commentsButton);
->>>>>>> 2ef41b3152620b48a7166eb50f19d0cef7c9a2f9
         }
     }
 }

@@ -8,6 +8,11 @@ import android.view.ViewConfiguration;
 
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+/**
+ * Custom {@link SwipeRefreshLayout} that only triggers refresh when the user performs
+ * a vertical swipe from the top of the associated scroll view. Prevents false-positive
+ * refresh triggers during horizontal scrolling or mid-content vertical scrolling.
+ */
 public class CustomSwipeRefreshLayout extends SwipeRefreshLayout {
 
     private float startX;

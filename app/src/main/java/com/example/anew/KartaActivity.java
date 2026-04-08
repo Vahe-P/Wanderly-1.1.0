@@ -22,6 +22,11 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+/**
+ * Map-based location picker. Displays a Google Map where the user can tap
+ * to select a location. The selected latitude/longitude is returned as an
+ * Activity result to the calling Activity (e.g., {@link MainActivity}).
+ */
 public class KartaActivity extends AppCompatActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;

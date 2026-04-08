@@ -11,6 +11,11 @@ import androidx.work.WorkManager;
 
 import java.util.concurrent.TimeUnit;
 
+/**
+ * BroadcastReceiver that listens for {@code BOOT_COMPLETED} events and
+ * re-schedules the periodic {@link HiWorker} notification task via WorkManager.
+ * Ensures notifications resume after device reboot.
+ */
 public class BootReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {

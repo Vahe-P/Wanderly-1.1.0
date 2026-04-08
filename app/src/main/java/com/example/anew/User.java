@@ -1,5 +1,10 @@
 package com.example.anew;
 
+/**
+ * Data model representing a registered user.
+ * Stored in the Firestore "users" collection with the user's UID as the document ID.
+ * Holds basic profile information: name, email, and profile picture URL.
+ */
 public class User {
     private String uid;
     private String email;

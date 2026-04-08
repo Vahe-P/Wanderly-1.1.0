@@ -31,6 +31,12 @@ import com.google.android.material.textfield.TextInputLayout;
 import com.google.android.material.textfield.TextInputEditText;
 import com.bumptech.glide.Glide;
 
+/**
+ * User profile screen providing account management and app settings.
+ * Features include: profile display (name, avatar from Firestore), search radius
+ * configuration, location mode toggle (from my place / choose on map), password change,
+ * account deletion, appearance (dark/light mode), feedback email, and bottom navigation.
+ */
 public class ProfileActivity extends AppCompatActivity {
     private TextView userName;
     private FirebaseAuth firebaseAuth;

@@ -21,6 +21,11 @@ import java.util.ArrayList;
 import java.util.List;
 import android.widget.TextView;
 
+/**
+ * Displays the user's saved favorite places in a grid layout.
+ * Loads favorites from the Firestore "users/{uid}/favorites" sub-collection
+ * and supports pull-to-refresh. Navigates to {@link MapActivity} when a place is tapped.
+ */
 public class FavoritesActivity extends AppCompatActivity {
     private RecyclerView resultsContainer;
     private SwipeRefreshLayout swipeRefreshLayout;

@@ -45,6 +45,11 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+/**
+ * Fetches the nearest place for a given category using the Google Places API
+ * ranked by distance, then queries the Distance Matrix API for street distance.
+ * Only the closest result is kept. Used for proximity-based recommendations.
+ */
 public class TheNearestChurch {
     public boolean findedForChurches = false;
 
@@ -84,7 +89,7 @@ public class TheNearestChurch {
                                 }
                                 destinations.append(lat).append(",").append(lng);
 
-                                Log.e("AAJN", "Processing " + category + ": " + place.getString("name"));
+                                // Place processed: name and coordinates extracted
                             }
 
                             getStreetDistances(resultView.getContext(), userLat, userLng, destinations.toString(), apiKey, coordinates, results, resultView, resultsContainer, category);

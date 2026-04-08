@@ -20,6 +20,11 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
+/**
+ * Handles user authentication: email/password login, password reset,
+ * and guest-mode access. Redirects to {@link RegisterActivity} for new users
+ * and to {@link MainActivity} on successful login or guest entry.
+ */
 public class LoginActivity extends AppCompatActivity {
 
     private FirebaseAuth firebaseAuth;

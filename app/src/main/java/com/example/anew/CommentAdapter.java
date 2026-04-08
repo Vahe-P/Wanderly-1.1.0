@@ -29,6 +29,12 @@ import java.util.Map;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
+/**
+ * RecyclerView adapter for displaying comments on a place.
+ * Supports editing, deleting (for the comment owner), and liking comments.
+ * Comment data is stored in Firestore under "places/{placeId}/comments".
+ * User avatars are loaded from the Firestore "users" collection.
+ */
 public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentViewHolder> {
     private List<DocumentSnapshot> comments;
     private Context context;

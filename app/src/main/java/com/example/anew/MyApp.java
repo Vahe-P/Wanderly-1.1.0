@@ -16,6 +16,11 @@ import com.google.firebase.firestore.FirebaseFirestoreSettings;
 
 import java.util.concurrent.TimeUnit;
 
+/**
+ * Application-level initializer. Sets up Firebase, enables Firestore offline
+ * persistence, and schedules the periodic {@link HiWorker} notification task
+ * if notification permission is granted (Android 13+).
+ */
 public class MyApp extends Application {
 
     @Override

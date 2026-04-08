@@ -14,7 +14,6 @@ import androidx.core.content.ContextCompat;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DatabaseReference;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -22,6 +21,12 @@ import java.util.List;
 import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.Map;
 
+/**
+ * Onboarding questionnaire where users select their place-category preferences
+ * (churches, hotels, parks, museums, mountains, libraries). Selections are saved
+ * to Firestore under "UserPreferences/{uid}" and used by {@link MainActivity}
+ * to personalize recommended places.
+ */
 public class QuestionnaireActivity extends AppCompatActivity {
 
     private CheckBox church, hotel, library, park,museum,mountain;

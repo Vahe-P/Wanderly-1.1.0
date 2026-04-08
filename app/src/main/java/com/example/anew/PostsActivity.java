@@ -24,6 +24,11 @@ import com.google.firebase.storage.FirebaseStorage;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Community social feed displaying user-created posts.
+ * Posts are loaded from Firestore in reverse-chronological order.
+ * Supports pull-to-refresh and a FAB to create new posts via {@link CreatePostActivity}.
+ */
 public class PostsActivity extends AppCompatActivity {
     private RecyclerView postsRecyclerView;
     private SwipeRefreshLayout swipeRefreshLayout;

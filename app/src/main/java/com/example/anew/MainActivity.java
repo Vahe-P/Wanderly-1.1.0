@@ -3,6 +3,7 @@ package com.example.anew;
 import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Location;
@@ -51,6 +52,13 @@ import java.util.Map;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * Main discovery screen of the Wanderly app.
+ * Displays nearby places on a grid based on user-selected categories and location.
+ * Features include category filtering via checkboxes, pull-to-refresh, swipe
+ * navigation to Favorites/Profile, personalized recommendations from Firestore
+ * user preferences, and a floating action button to launch the AI Travel Chatbot.
+ */
 public class MainActivity extends AppCompatActivity {
 
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1;
@@ -86,7 +94,6 @@ public class MainActivity extends AppCompatActivity {
 
         boolean isGuest = getIntent().getBooleanExtra("isGuest", false);
         boolean fromProfile = getIntent().getBooleanExtra("fromProfile", false);
-        Log.d("DEBUG", "fromProfile: " + fromProfile);
 
         if (!isGuest && FirebaseAuth.getInstance().getCurrentUser() == null && !fromProfile) {
             Intent loginIntent = new Intent(MainActivity.this, LoginActivity.class);
@@ -131,13 +138,6 @@ public class MainActivity extends AppCompatActivity {
 
         getLocation();
         ImageView compassImage = findViewById(R.id.compassImage);
-        if (compassImage == null) {
-            Log.e("DEBUgggG", "compassImage is null. Check if the ID in XML matches the ID in the code.");
-        } else {
-            Log.d("DEBUgggG", "compassImage is initialized correctly.");
-        }
-
-        getLocation();
         compassImage.setOnClickListener(v -> {
             if(isNetworkAvailable(this) || userLocation != null){
                 List<String> selectedCategories = getSelectedCategories();
@@ -152,49 +152,14 @@ public class MainActivity extends AppCompatActivity {
         });
         if (!isNetworkAvailable(this) || userLocation == null) {
             showRotatingCompass(compassImage);
-
             if (!isNetworkAvailable(this)) {
                 Toast.makeText(this, "No internet connection", Toast.LENGTH_SHORT).show();
             }
-
             if (userLocation == null) {
-                //Toast.makeText(this, "Location is not available", Toast.LENGTH_SHORT).show();
-            }
-        }
-
-        if (!isNetworkAvailable(this) || userLocation == null) {
-            RotateAnimation rotate = new RotateAnimation(
-                    0f, 360f,
-                    Animation.RELATIVE_TO_SELF, 0.5f,
-                    Animation.RELATIVE_TO_SELF, 0.5f
-            );
-            rotate.setDuration(2000);
-            rotate.setRepeatCount(Animation.INFINITE);
-            compassImage.startAnimation(rotate);
-            compassImage.setVisibility(View.VISIBLE);
-            if(!isNetworkAvailable(this) ){
-                Toast.makeText(this, "No internet connection", Toast.LENGTH_SHORT).show();
-            }
-<<<<<<< HEAD
-            if (userLocation == null){
                 Toast.makeText(this, "Location is not available", Toast.LENGTH_SHORT).show();
             }
-=======
-
-
->>>>>>> 2ef41b3152620b48a7166eb50f19d0cef7c9a2f9
-        } if(isNetworkAvailable(this) && userLocation != null) {
-            compassImage.clearAnimation();
-            compassImage.setVisibility(View.GONE);
-        }
-        if(userLocation==null){
-<<<<<<< HEAD
-            Toast.makeText(this, "Location isjkdsfvndjnkfvj not available", Toast.LENGTH_SHORT).show();
-=======
-            //Toast.makeText(this, "Location is not available", Toast.LENGTH_SHORT).show();
-
->>>>>>> 2ef41b3152620b48a7166eb50f19d0cef7c9a2f9
-            showRotatingCompass(compassImage);
+        } else {
+            hideRotatingCompass(compassImage);
         }
 
         searchButton.setOnClickListener(v -> {
@@ -233,8 +198,6 @@ public class MainActivity extends AppCompatActivity {
             }
             recommendedText.setText("Result");
             errorImageView.setVisibility(View.GONE);
-
-            Log.d("SEARCH", "fromWhere value: " + fromWhere);
 
             if (userLocation != null) {
                 List<String> selectedCategories = getSelectedCategories();
@@ -308,6 +271,17 @@ public class MainActivity extends AppCompatActivity {
         setupCheckboxListeners();
         updateSearchButtonState();
         requestNotificationPermission();
+
+        // AI Chat FAB - opens the travel chatbot
+        FloatingActionButton fabChat = findViewById(R.id.fabChat);
+        fabChat.setOnClickListener(v -> {
+            Intent chatIntent = new Intent(MainActivity.this, ChatActivity.class);
+            if (userLocation != null) {
+                chatIntent.putExtra("userLat", userLocation.getLatitude());
+                chatIntent.putExtra("userLng", userLocation.getLongitude());
+            }
+            startActivity(chatIntent);
+        });
 
         gestureDetector = new GestureDetector(this, new SwipeGestureListener());
 
@@ -526,8 +500,6 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-<<<<<<< HEAD
-=======
     private void onResultFound(boolean found) {
         if (found) {
             foundResults++;
@@ -679,7 +651,6 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
->>>>>>> 2ef41b3152620b48a7166eb50f19d0cef7c9a2f9
     private void changeCheckboxColor() {
         CheckBox checkChurches = findViewById(R.id.checkChurches);
         CheckBox checkMuseums = findViewById(R.id.checkMuseums);
@@ -810,7 +781,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
             } catch (Exception exception) {
-                exception.printStackTrace();
+                Log.e("SwipeGesture", "Error during fling detection", exception);
             }
             return result;
         }

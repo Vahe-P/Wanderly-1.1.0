@@ -38,6 +38,11 @@ import java.io.OutputStream;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Handles new user registration with Firebase Auth and Firestore.
+ * Collects first name, last name, email, password, and an optional profile picture
+ * (uploaded to Cloudinary). Sends an email verification link after registration.
+ */
 public class RegisterActivity extends AppCompatActivity {
 
     private FirebaseAuth firebaseAuth;
@@ -258,7 +263,7 @@ public class RegisterActivity extends AppCompatActivity {
             inputStream.close();
             return Uri.fromFile(tempFile);
         } catch (Exception e) {
-            e.printStackTrace();
+            Log.e("RegisterActivity", "Failed to copy image to local file", e);
             return null;
         }
     }

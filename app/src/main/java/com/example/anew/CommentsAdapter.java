@@ -15,6 +15,11 @@ import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
+/**
+ * RecyclerView adapter for displaying comments on social posts.
+ * Shows the commenter's avatar, name, and comment text.
+ * Used within {@link PostsAdapter} to render inline comment lists.
+ */
 public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.CommentViewHolder> {
     private Context context;
     private List<Post.Comment> comments;

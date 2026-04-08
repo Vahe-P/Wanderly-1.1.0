@@ -29,6 +29,12 @@ import java.util.Locale;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
+/**
+ * RecyclerView adapter for the community social feed.
+ * Displays posts with user info, text content, optional image, location,
+ * like/comment/share actions, and an inline comments section using
+ * {@link CommentsAdapter}. Interacts with Firestore for likes and comments.
+ */
 public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.PostViewHolder> {
     private Context context;
     private java.util.List<Post> posts;
@@ -159,8 +165,9 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.PostViewHold
         }
     }
 
+    /** Placeholder for post options menu (report, delete own post, etc.). */
     private void showMoreOptions(Post post) {
-        // TODO: Implement more options menu (report, delete if own post, etc.)
+        // No-op: reserved for future implementation
     }
 
     private void addComment(Post post, PostViewHolder holder) {

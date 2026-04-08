@@ -43,6 +43,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * RecyclerView adapter for displaying favorited places in a grid.
+ * Each card shows a place image, name, favorite-toggle star, share button,
+ * and a comments bottom sheet. Tapping a card navigates to {@link MapActivity}
+ * with routing from the user's current location to the place.
+ */
 public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.PlaceViewHolder> {
 
     private Context context;
@@ -222,24 +228,15 @@ public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.PlaceViewHol
                 if (!commentText.isEmpty()) {
                     // Fetch user info for name and profile picture
                     String userId = currentUser.getUid();
-                    Log.d("CommentDebug", "Fetching user info for userId: " + userId);
-                    Log.d("CommentDebug", "Current user email: " + currentUser.getEmail());
-                    Log.d("CommentDebug", "Current user is email verified: " + currentUser.isEmailVerified());
 
                     db.collection("users").document(userId).get()
                             .addOnSuccessListener(userDoc -> {
                                 if (userDoc.exists()) {
-                                    Log.d("CommentDebug", "User document exists");
                                     String firstName = userDoc.getString("firstName");
                                     String lastName = userDoc.getString("lastName");
                                     String profilePictureUrl = userDoc.getString("profilePictureUrl");
 
-                                    Log.d("CommentDebug", "User data - firstName: " + firstName +
-                                            ", lastName: " + lastName +
-                                            ", profilePictureUrl: " + profilePictureUrl);
-
                                     if (firstName == null) {
-                                        Log.e("CommentDebug", "User profile is incomplete - firstName is null");
                                         Toast.makeText(context, "User profile is incomplete. Please update your profile.", Toast.LENGTH_LONG).show();
                                         return;
                                     }
@@ -254,24 +251,19 @@ public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.PlaceViewHol
                                     comment.put("timestamp", System.currentTimeMillis());
                                     comment.put("likes", new HashMap<String, Boolean>());
 
-                                    Log.d("CommentDebug", "Attempting to add comment to place: " + place.getId());
                                     commentsRef.add(comment)
                                             .addOnSuccessListener(documentReference -> {
-                                                Log.d("CommentDebug", "Comment added successfully with ID: " + documentReference.getId());
                                                 commentInput.setText("");
                                                 Toast.makeText(context, "Comment posted", Toast.LENGTH_SHORT).show();
                                             })
                                             .addOnFailureListener(e -> {
-                                                Log.e("CommentDebug", "Failed to post comment", e);
                                                 Toast.makeText(context, "Failed to post comment: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                                             });
                                 } else {
-                                    Log.e("CommentDebug", "User document does not exist for userId: " + userId);
                                     Toast.makeText(context, "User profile not found. Please update your profile.", Toast.LENGTH_LONG).show();
                                 }
                             })
                             .addOnFailureListener(e -> {
-                                Log.e("CommentDebug", "Failed to get user info", e);
                                 Toast.makeText(context, "Failed to get user info: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                             });
                 } else {

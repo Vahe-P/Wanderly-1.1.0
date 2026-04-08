@@ -5,6 +5,11 @@ import android.util.AttributeSet;
 import android.widget.OverScroller;
 import android.widget.ScrollView;
 
+/**
+ * Custom {@link ScrollView} with modified fling behavior.
+ * Reduces the default fling velocity by 10x for smoother, more controlled
+ * inertial scrolling using an {@link OverScroller}.
+ */
 public class InertialScrollView extends ScrollView {
 
     private OverScroller scroller;

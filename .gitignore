@@ -1,6 +1,8 @@
+# ===== Android / Gradle =====
 *.iml
-.gradle
+.gradle/
 /local.properties
+/.idea/
 /.idea/caches
 /.idea/libraries
 /.idea/modules.xml
@@ -8,8 +10,45 @@
 /.idea/navEditor.xml
 /.idea/assetWizardSettings.xml
 .DS_Store
-/build
+/build/
+/app/build/
 /captures
-.externalNativeBuild
-.cxx
-local.properties
+.externalNativeBuild/
+.cxx/
+*.apk
+*.aab
+*.ap_
+*.dex
+
+# ===== Java / Kotlin =====
+*.class
+*.jar
+*.war
+*.ear
+
+# ===== OS Files =====
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+*~
+
+# ===== IDE / Editor =====
+.vscode/
+*.swp
+*.swo
+*.bak
+*.tmp
+
+# ===== Environment & Secrets =====
+.env
+.env.local
+*.keystore
+*.jks
+google-services.json
+
+# ===== Node (if applicable) =====
+node_modules/
+
+# ===== Logs =====
+*.log
